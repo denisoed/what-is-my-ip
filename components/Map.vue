@@ -7,7 +7,7 @@
       :options="{ zoomControl: false, attributionControl: false }"
     >
       <LTileLayer
-        url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer-type="base"
       />
     </LMap>
