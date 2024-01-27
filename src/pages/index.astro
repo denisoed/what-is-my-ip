@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-
-import Map from "../components/Map.vue";
+import UserInfo from "../components/UserInfo.astro";
 
 async function getFullUserInfo() {
   const responseIp = await fetch("https://api.ipify.org/?format=json");
@@ -12,6 +11,7 @@ async function getFullUserInfo() {
 }
 
 const info = await getFullUserInfo();
+
 const center = info.loc.split(",").map(Number);
 ---
 
@@ -46,11 +46,17 @@ const center = info.loc.split(",").map(Number);
       </defs>
     </svg>
     <h1>What is My <span class="text-gradient">IP</span></h1>
-    <p class="instructions">
-      {info.ip}
-      <Map class:list={"instructions-map"} client:only center={center} />
-    </p>
-    <ul role="list" class="link-card-grid">
+    <UserInfo
+      ip={info.ip}
+      center={center}
+      hostname={info.hostname}
+      city={info.city}
+      country={info.country}
+      loc={info.loc}
+      org={info.org}
+      timezone={info.timezone}
+    />
+    <ul role="list" class="link-card-grid mt-8">
       <Card
         href="https://docs.astro.build/"
         title="Documentation"
