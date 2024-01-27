@@ -7,5 +7,12 @@ export default defineNuxtConfig({
   },
   modules: [
     'nuxt3-leaflet'
-  ]
+  ],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      }
+    }
+  }
 })

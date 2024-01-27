@@ -2,16 +2,18 @@
   <main>
     <Logo class="logo-position" />
     <h1>What is My <span class="text-gradient">IP</span></h1>
-    <IpInfo
-      class="user-info"
-      :ip="info.ip"
-      :country="info.country"
-      :city="info.city"
-      :loc="info.loc"
-      :timezone="info.timezone"
-      :org="info.org"
-      :hostname="info.hostname"
-    />
+    <ClientOnly>
+      <IpInfo
+        class="user-info"
+        :ip="info.ip"
+        :country="info.country"
+        :city="info.city"
+        :loc="info.loc"
+        :timezone="info.timezone"
+        :org="info.org"
+        :hostname="info.hostname"
+      />
+    </ClientOnly>
   </main>
 </template>
 
@@ -38,21 +40,26 @@ export default defineComponent({
 <style lang="scss">
   main {
     margin: auto;
-    padding: 4rem;
+    padding: 4rem 0;
     width: 800px;
     max-width: calc(100% - 2rem);
     color: white;
     font-size: 20px;
     line-height: 1.6;
+
+    @media (max-width: 768px) {
+      width: 500px;
+    }
   }
   .logo-position {
     position: absolute;
     top: -15px;
     left: 50%;
     transform: translatex(-50%);
-    width: 220px;
+    width: 520px;
     height: auto;
     z-index: 1;
+    opacity: 0.2;
   }
   h1 {
     position: relative;
@@ -63,6 +70,10 @@ export default defineComponent({
     margin-bottom: 1em;
     z-index: 2;
     margin: 0;
+
+    @media (max-width: 992px) {
+      font-size: 3rem;
+    }
   }
   .text-gradient {
     background-image: var(--accent-gradient);
