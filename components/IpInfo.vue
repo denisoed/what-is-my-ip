@@ -12,13 +12,13 @@
       </div>
       <div class="user-info_data-details">
         <p title={country}>
-          Country: <span>{{ flag }} {{ country }}</span>
+          Country: <span>{{ flag }} {{ country || 'N/A' }}</span>
         </p>
-        <p :title="city">City: <span>{{ city }}</span></p>
-        <p :title="loc">Location: <span>{{ loc }}</span></p>
-        <p :title="timezone">Time zone: <span>{{ timezone }}</span></p>
-        <p :title="org">Org: <span>{{ org }}</span></p>
-        <p :title="hostname">Hostname: <span>{{ hostname }}</span></p>
+        <p :title="city">City: <span>{{ city || 'N/A' }}</span></p>
+        <p :title="loc">Location: <span>{{ loc || 'N/A' }}</span></p>
+        <p :title="timezone">Time zone: <span>{{ timezone || 'N/A' }}</span></p>
+        <p :title="org">Org: <span>{{ org || 'N/A' }}</span></p>
+        <p :title="hostname">Hostname: <span>{{ hostname || 'N/A' }}</span></p>
       </div>
     </div>
     <Map v-if="center" class="user-info_map" :center="center" />

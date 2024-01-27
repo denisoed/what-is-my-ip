@@ -1,6 +1,7 @@
+import { publicIpv4 } from 'public-ip';
+
 export default defineEventHandler(async () => {
-  const responseIp = await fetch('https://api.ipify.org/?format=json');
-  const { ip } = await responseIp.json();
+  const ip = await publicIpv4();
   const response = await fetch(`https://ipinfo.io/${ip}/json`);
   return await response.json();
 });
