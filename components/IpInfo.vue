@@ -7,18 +7,18 @@
           variant="tonal"
           aria-label="Copy IP"
           icon="mdi-content-copy"
-          @click="copyIp"
+          @click="copyValue('ip')"
         />
       </div>
       <div class="user-info_data-details">
-        <p title={country}>
+        <p @click="copyValue('country')" :title="country">
           Country: <span>{{ flag }} {{ country || 'N/A' }}</span>
         </p>
-        <p :title="city">City: <span>{{ city || 'N/A' }}</span></p>
-        <p :title="loc">Location: <span>{{ loc || 'N/A' }}</span></p>
-        <p :title="timezone">Time zone: <span>{{ timezone || 'N/A' }}</span></p>
-        <p :title="org">Org: <span>{{ org || 'N/A' }}</span></p>
-        <p :title="hostname">Hostname: <span>{{ hostname || 'N/A' }}</span></p>
+        <p @click="copyValue('city')" :title="city">City: <span>{{ city || 'N/A' }}</span></p>
+        <p @click="copyValue('loc')" :title="loc">Location: <span>{{ loc || 'N/A' }}</span></p>
+        <p @click="copyValue('timezone')" :title="timezone">Time zone: <span>{{ timezone || 'N/A' }}</span></p>
+        <p @click="copyValue('org')" :title="org">Org: <span>{{ org || 'N/A' }}</span></p>
+        <p @click="copyValue('hostname')" :title="hostname">Hostname: <span>{{ hostname || 'N/A' }}</span></p>
       </div>
     </div>
     <Map v-if="center" class="user-info_map" :center="center" />
@@ -30,7 +30,7 @@
         class="mr-2"
         icon="mdi-check"
       />
-      IP: {{ ip }} copied
+      {{ copyField.type }}: {{ copyField.value }} - copied
       <template v-slot:actions>
         <v-btn
           variant="text"
@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, ref } from "vue";
+import { defineComponent, computed, toRefs, ref, reactive } from "vue";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
 
 export default defineComponent({
@@ -82,9 +82,15 @@ export default defineComponent({
     const { country, loc } = toRefs(props);
 
     const snackbar = ref(false);
+    const copyField = reactive({
+      type: '',
+      value: '',
+    });
 
-    function copyIp() {
-      navigator.clipboard.writeText(props.ip);
+    function copyValue(type: string) {
+      copyField.type = type.toUpperCase();
+      copyField.value = props[type];
+      navigator.clipboard.writeText(props[type]);
       snackbar.value = true;
     }
 
@@ -94,7 +100,7 @@ export default defineComponent({
 
     const center = computed(() => loc.value?.split(",")?.map(Number));
 
-    return { flag, center, copyIp, snackbar };
+    return { flag, center, copyValue, snackbar, copyField };
   }
 });
 </script>
@@ -110,6 +116,7 @@ export default defineComponent({
       rgba(var(--accent-dark), 33%)
     );
     border-radius: 8px;
+    overflow: hidden;
 
     @media (max-width: 768px) {
       flex-direction: column;
@@ -136,7 +143,7 @@ export default defineComponent({
       height: 280px;
 
       @media (max-width: 992px) {
-        height: 230px;
+        height: 270px;
       }
       
       @media (max-width: 768px) {
@@ -163,6 +170,7 @@ export default defineComponent({
 
           @media (max-width: 992px) {
             font-size: 1rem;
+            margin: 6px 0;
           }
 
           @media (max-width: 568px) {

@@ -40,19 +40,23 @@ export default defineComponent({
 <style lang="scss">
   main {
     margin: auto;
-    padding: 4rem 0;
+    padding: 4rem 15px;
     width: 800px;
-    max-width: calc(100% - 2rem);
     color: white;
     font-size: 20px;
     line-height: 1.6;
+    overflow: hidden;
 
     @media (max-width: 768px) {
-      width: 500px;
+      max-width: 500px;
+    }
+
+    @media (max-width: 568px) {
+      max-width: 100%;
     }
   }
   .logo-position {
-    position: absolute;
+    position: fixed;
     top: -15px;
     left: 50%;
     transform: translatex(-50%);
