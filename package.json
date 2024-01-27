@@ -1,45 +1,24 @@
 {
-  "name": "whatmyip",
+  "name": "nuxt-app",
+  "private": true,
   "type": "module",
-  "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "check": "astro check",
-    "lint": "eslint . --fix",
-    "editorconfig": "editorconfig-checker -exclude \"**/node_modules/**\""
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.4.1",
-    "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vue": "^4.0.8",
-    "@types/leaflet": "^1.9.8",
-    "astro": "^4.2.4",
-    "astro-icon": "^1.0.3",
-    "country-flag-icons": "^1.5.9",
-    "leaflet": "^1.9.4",
-    "sass": "^1.70.0",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3",
-    "vue": "^3.4.15",
-    "vue3-leaflet": "git+https://git@github.com/geonativefr/vue3-leaflet.git"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@iconify-json/mdi": "^1.1.64",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
-    "editorconfig-checker": "^5.1.2",
-    "eslint": "^8.56.0",
-    "eslint-plugin-astro": "^0.31.3",
-    "eslint-plugin-jsx-a11y": "^6.8.0",
-    "prettier": "^3.2.4",
-    "prettier-plugin-astro": "^0.13.0",
-    "prettier-plugin-tailwindcss": "^0.5.11"
+    "nuxt": "^3.8.2",
+    "nuxt3-leaflet": "^1.0.12",
+    "vue": "^3.4.14",
+    "vue-router": "^4.2.5"
   },
-  "engines": {
-    "node": ">18.0.0"
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "country-flag-icons": "^1.5.9",
+    "sass": "^1.70.0",
+    "vuetify": "^3.4.0-beta.1"
   }
 }
