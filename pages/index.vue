@@ -10,7 +10,6 @@
         :city="info.city"
         :loc="info.loc"
         :timezone="info.timezone"
-        :org="info.org"
         :hostname="info.hostname"
       />
     </ClientOnly>
@@ -18,19 +17,31 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onBeforeMount } from "vue";
 
 export default defineComponent({
   name: "IndexPage",
   setup() {
     const info = ref({});
-
+    
     async function fetchInitData() {
-      const { data } = await useFetch('/api/info');
-      info.value = data?.value || {};
+      const runtimeConfig = useRuntimeConfig();
+      const response = await fetch(runtimeConfig.public.API_BASE_URL);
+      const data = await response.json();
+      console.log(data);
+      info.value = {
+        ip: data.ip,
+        city: data.city.names.en,
+        loc: [data.location.latitude, data.location.longitude],
+        timezone: data.location.time_zone,
+        country: data.country.iso_code,
+        hostname: data.autonomous_system_organization
+      };
     }
 
-    fetchInitData();
+    onBeforeMount(() => {
+      fetchInitData();
+    });
 
     return { info }
   },
@@ -46,6 +57,10 @@ export default defineComponent({
     font-size: 20px;
     line-height: 1.6;
     overflow: hidden;
+
+    @media (max-width: 992px) {
+      max-width: 650px;
+    }
 
     @media (max-width: 768px) {
       max-width: 500px;

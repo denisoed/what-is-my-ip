@@ -15,13 +15,14 @@
           Country: <span>{{ flag }} {{ country || 'N/A' }}</span>
         </p>
         <p @click="copyValue('city')" :title="city">City: <span>{{ city || 'N/A' }}</span></p>
-        <p @click="copyValue('loc')" :title="loc">Location: <span>{{ loc || 'N/A' }}</span></p>
+        <p @click="copyValue('loc')" :title="loc">Location: <span>{{ loc?.join(', ') || 'N/A' }}</span></p>
         <p @click="copyValue('timezone')" :title="timezone">Time zone: <span>{{ timezone || 'N/A' }}</span></p>
-        <p @click="copyValue('org')" :title="org">Org: <span>{{ org || 'N/A' }}</span></p>
         <p @click="copyValue('hostname')" :title="hostname">Hostname: <span>{{ hostname || 'N/A' }}</span></p>
       </div>
     </div>
-    <Map v-if="center" class="user-info_map" :center="center" />
+    <div class="user-info_map">
+      <Map v-if="loc" :center="loc" />
+    </div>
     <v-snackbar
       v-model="snackbar"
       :timeout="3000"
@@ -65,12 +66,8 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    org: {
-      type: String,
-      required: true,
-    },
     loc: {
-      type: String,
+      type: Array,
       required: true,
     },
     timezone: {
@@ -79,7 +76,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { country, loc } = toRefs(props);
+    const { country } = toRefs(props);
 
     const snackbar = ref(false);
     const copyField = reactive({
@@ -98,9 +95,7 @@ export default defineComponent({
       return country.value ? getUnicodeFlagIcon(country.value) : "🌎";
     });
 
-    const center = computed(() => loc.value?.split(",")?.map(Number));
-
-    return { flag, center, copyValue, snackbar, copyField };
+    return { flag, copyValue, snackbar, copyField };
   }
 });
 </script>
@@ -136,19 +131,16 @@ export default defineComponent({
       width: 40px;
       height: 40px;
       font-size: 14px;
+      margin: 12px 0;
     }
 
     &_map {
-      max-width: 200px;
+      width: 200px;
       height: 280px;
-
-      @media (max-width: 992px) {
-        height: 270px;
-      }
       
       @media (max-width: 768px) {
         margin-top: 10px;
-        max-width: 100%;
+        width: 100% !important;
         height: 150px;
       }
     }
