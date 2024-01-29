@@ -28,14 +28,13 @@ export default defineComponent({
       const runtimeConfig = useRuntimeConfig();
       const response = await fetch(runtimeConfig.public.API_BASE_URL);
       const data = await response.json();
-      console.log(data);
       info.value = {
-        ip: data.ip,
-        city: data.city.names.en,
-        loc: [data.location.latitude, data.location.longitude],
-        timezone: data.location.time_zone,
-        country: data.country.iso_code,
-        hostname: data.autonomous_system_organization
+        ip: data?.ip,
+        city: data?.city?.names?.en,
+        loc: [data?.location?.latitude, data?.location?.longitude],
+        timezone: data?.location?.time_zone,
+        country: data?.country?.iso_code,
+        hostname: data?.autonomous_system_organization
       };
     }
 
