@@ -1,7 +1,6 @@
 <template>
   <main>
-    <Logo class="logo-position" />
-    <h1>What is My <span class="text-gradient">IP</span></h1>
+    <h1>What is My IP</h1>
     <ClientOnly>
       <IpInfo
         class="user-info"
@@ -13,6 +12,9 @@
         :hostname="info.hostname"
       />
     </ClientOnly>
+    <div class="links">
+      <CardLink to="/check-speed" title="Internet Speed" body="Check internet speed" />
+    </div>
   </main>
 </template>
 
@@ -50,7 +52,7 @@ export default defineComponent({
 <style lang="scss">
   main {
     margin: auto;
-    padding: 4rem 15px;
+    padding: 4rem 55px;
     width: 800px;
     color: white;
     font-size: 20px;
@@ -67,6 +69,11 @@ export default defineComponent({
 
     @media (max-width: 568px) {
       max-width: 100%;
+      padding: 4rem 25px;
+    }
+    
+    @media (max-width: 568px) {
+      padding: 4rem 15px;
     }
   }
   .logo-position {
@@ -88,6 +95,8 @@ export default defineComponent({
     margin-bottom: 1em;
     z-index: 2;
     margin: 0;
+    color: #aaffff;
+    text-shadow: 0 0 8px #81ecec;
 
     @media (max-width: 992px) {
       font-size: 3rem;
@@ -109,5 +118,11 @@ export default defineComponent({
   .user-info {
     z-index: 1;
     margin-top: 50px;
+  }
+  .links {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    margin-top: 30px;
   }
 </style>

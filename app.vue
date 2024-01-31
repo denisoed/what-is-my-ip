@@ -17,7 +17,7 @@
 
 <style lang="scss">
 :root {
-  --accent: 136, 58, 234;
+  --accent: 34, 49, 64;
   --accent-light: 224, 204, 250;
   --accent-dark: 49, 10, 101;
   --accent-gradient: linear-gradient(
@@ -28,10 +28,19 @@
   );
 }
 
-html, body {
-  font-family: system-ui, sans-serif;
-  background: #13151a;
-  background-size: 224px;
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #14222e, #2c3c5a);
+  color: #eaeaea;
 }
 
 ::-webkit-scrollbar {

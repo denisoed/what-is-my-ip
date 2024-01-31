@@ -1,6 +1,6 @@
 <template>
   <div class="user-info">
-    <div class="user-info_data px-4 py-1">
+    <div class="user-info_data">
       <div class="d-flex align-center justify-space-between">
         <h2>{{ ip }}</h2>
         <v-btn
@@ -105,13 +105,11 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     position: relative;
-    border: 1px solid rgba(var(--accent-light), 25%);
-    background: linear-gradient(
-      rgba(var(--accent-dark), 66%),
-      rgba(var(--accent-dark), 33%)
-    );
-    border-radius: 8px;
     overflow: hidden;
+    background: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.08));
+    background-color: #223140;
+    border-radius: 24px;
+    box-shadow: -16px 16px 16px 8px rgba(0, 0, 0, 0.2);
 
     @media (max-width: 768px) {
       flex-direction: column;
@@ -147,6 +145,11 @@ export default defineComponent({
 
     &_data {
       width: 100%;
+      padding: 25px 35px;
+
+      @media (max-width: 568px) {
+        padding: 15px 25px;
+      }
 
       &-details {
         width: 100%;
