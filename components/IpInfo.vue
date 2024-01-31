@@ -15,7 +15,7 @@
           Country: <span>{{ flag }} {{ country || 'N/A' }}</span>
         </p>
         <p @click="copyValue('city')" :title="city">City: <span>{{ city || 'N/A' }}</span></p>
-        <p @click="copyValue('loc')" :title="loc">Location: <span>{{ loc?.join(', ') || 'N/A' }}</span></p>
+        <p @click="copyValue('loc')" :title="loc?.join(', ')">Location: <span>{{ loc?.join(', ') || 'N/A' }}</span></p>
         <p @click="copyValue('timezone')" :title="timezone">Time zone: <span>{{ timezone || 'N/A' }}</span></p>
         <p @click="copyValue('hostname')" :title="hostname">Hostname: <span>{{ hostname || 'N/A' }}</span></p>
       </div>
