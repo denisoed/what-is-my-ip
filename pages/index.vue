@@ -96,7 +96,6 @@ export default defineComponent({
     z-index: 2;
     margin: 0;
     color: #aaffff;
-    text-shadow: 0 0 8px #81ecec;
 
     @media (max-width: 992px) {
       font-size: 3rem;

@@ -2,55 +2,37 @@
   <div class="wrapper">
     <div class="loader-widget">
       <h1>CHECK INTERNET SPEED</h1>
-      <span class="loader hide"></span>
       <div class="loader-content">
-        <div class="content hide">24<small>Mbps</small></div>
-        <button @click="checkSpeed">CHECK</button>
+        <div class="content">{{ downloadSpeed }}<small>Mbps</small></div>
+        <span v-if="checking" class="loader"></span>
+        <button v-else @click="checkSpeed">CHECK</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+  import { ref } from 'vue';
+  import { io } from "socket.io-client";
+
+  const runtimeConfig = useRuntimeConfig();
+
+  const socket = io(runtimeConfig.public.API_BASE_URL);
+
+  const checking = ref(false);
+  const downloadSpeed = ref(0);
+
   async function checkSpeed() {
-    const imageLink = 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Tokyo_Sky_Tree_2012.JPG',
-      downloadSize = 8185374;
-    let speeds = [];
-
-    const loadSpeedTest = () => {
-      return new Promise(resolve => {
-        let timeStart, timeEnd;
-        const downloadSrc = new Image();
-        timeStart = new Date().getTime();
-        const cacheImg = `?nn=${timeStart}`;
-        downloadSrc.src = `${imageLink}${cacheImg}`;
-
-        downloadSrc.onload = () => {
-          timeEnd = new Date().getTime();
-          const timeDuration = (timeEnd - timeStart) / 1000;
-          const loadedBytes = downloadSize * 8;
-          const speed = (loadedBytes / timeDuration) / 1024 / 1024;
-          resolve(speed);
-        };
-      });
-    };
-
-    document.querySelector('.loader-content').classList.add('hide');
-    document.querySelector('.loader').classList.remove('hide');
-
-    for (let i = 0; i < 5; i++) {
-      speeds.push(await loadSpeedTest());
-    }
-
-    const results = await Promise.all(speeds);
-    const totalSpeed = (Math.max(...results)).toFixed(0);
-
-    document.querySelector('.content').innerHTML = `${totalSpeed}<small>Mbps</small>`;
-    document.querySelector('.loader-content').classList.remove('hide');
-    document.querySelector('.loader-content').classList.add('result');
-    document.querySelector('.loader').classList.add('hide');
-    document.querySelector('.content').classList.remove('hide');
+    checking.value = true;
+    fetch(`${runtimeConfig.public.API_BASE_URL}/check-speed`);
   };
+
+  socket.on("check-speed-result", (socket) => {
+    downloadSpeed.value = socket?.downloadSpeed || 0;
+    if (socket?.isDone) {
+      checking.value = false;
+    } 
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -83,10 +65,10 @@
   .loader {
     position: relative;
     display: inline-block;
-    height: 240px;
-    width: 240px;
+    height: 180px;
+    width: 180px;
     border-radius: 50%;
-    background: conic-gradient(rgba(1, 182, 190, 0.3) 0%, transparent 65%);
+    background: conic-gradient(transparent 30%, rgba(1, 182, 190, 0.3) 100%);
     animation: radarRotate 2s linear infinite;
   }
 
@@ -103,8 +85,8 @@
     width: 0;
     top: 0;
     left: calc(50% - 8px);
-    border: 8px solid transparent;
-    border-top: 120px solid #81ecec;
+    border: 6px solid transparent;
+    border-top: 90px solid #81ecec;
     filter: drop-shadow(0 0 12px #01b6be);
   }
 
@@ -112,7 +94,6 @@
     line-height: 1.3;
     margin-bottom: 32px;
     color: #aaffff;
-    text-shadow: 0 0 8px #81ecec;
   }
 
   .loader-content {
@@ -125,8 +106,8 @@
   .loader-content button {
     position: relative;
     cursor: pointer;
-    height: 240px;
-    width: 240px;
+    height: 180px;
+    width: 180px;
     font-size: 18px;
     font-weight: bold;
     line-height: 1.5;
@@ -138,8 +119,8 @@
   }
 
   .loader-content.result button {
-    height: 120px;
-    width: 120px;
+    height: 180px;
+    width: 180px;
     margin-top: 16px;
   }
 
@@ -147,17 +128,17 @@
     background-color: #1f3c4e;
   }
 
-  .loader-content button:before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: -2px;
-    left: -2px;
-    border: 2px solid #7ed6d4;
-    border-radius: 50%;
-    animation: btnRing 2s linear infinite;
-  }
+  // .loader-content button:before {
+  //   content: '';
+  //   position: absolute;
+  //   height: 100%;
+  //   width: 100%;
+  //   top: -2px;
+  //   left: -2px;
+  //   border: 2px solid #7ed6d4;
+  //   border-radius: 50%;
+  //   animation: btnRing 2s linear infinite;
+  // }
 
   @keyframes btnRing {
     60%,
@@ -188,6 +169,10 @@
     line-height: normal;
     margin: 12px 0 32px 0;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
   }
 
   h1 {

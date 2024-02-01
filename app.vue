@@ -18,7 +18,7 @@
 <style lang="scss">
 :root {
   --accent: 34, 49, 64;
-  --accent-light: 224, 204, 250;
+  --accent-light: 89, 109, 130;
   --accent-dark: 49, 10, 101;
   --accent-gradient: linear-gradient(
     45deg,
