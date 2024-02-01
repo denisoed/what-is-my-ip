@@ -12,27 +12,29 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { io } from "socket.io-client";
 
   const runtimeConfig = useRuntimeConfig();
 
-  const socket = io(runtimeConfig.public.API_BASE_URL);
-
   const checking = ref(false);
   const downloadSpeed = ref(0);
-
+  
   async function checkSpeed() {
     checking.value = true;
     fetch(`${runtimeConfig.public.API_BASE_URL}/check-speed`);
   };
+  
+  onMounted(() => {
+    const socket = io(runtimeConfig.public.API_BASE_URL);
 
-  socket.on("check-speed-result", (socket) => {
-    downloadSpeed.value = socket?.downloadSpeed || 0;
-    if (socket?.isDone) {
-      checking.value = false;
-    } 
-  });
+    socket.on("check-speed-result", (socket) => {
+      downloadSpeed.value = socket?.downloadSpeed || 0;
+      if (socket?.isDone) {
+        checking.value = false;
+      } 
+    });
+  })
 </script>
 
 <style lang="scss" scoped>
