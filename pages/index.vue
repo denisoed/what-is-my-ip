@@ -146,8 +146,8 @@ export default defineComponent({
     width: 100%;
     z-index: 1;
     margin-top: 50px;
-
   }
+
   .links {
     width: 100%;
     display: flex;

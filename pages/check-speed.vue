@@ -1,8 +1,8 @@
 <template>
   <div class="check-speed-page">
+    <h1>Check Internet Speed</h1>
     <div class="wrapper">
       <div class="loader-widget">
-        <h1>CHECK INTERNET SPEED</h1>
         <div class="loader-content">
           <div class="content">{{ downloadSpeed }}<small>Mbps</small></div>
           <span v-if="checking" class="loader"></span>
@@ -81,9 +81,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     min-height: 100vh;
     padding: 4rem 15px;
+  }
+
+  h1 {
+    position: relative;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 1em;
+    z-index: 2;
+    margin: 0;
+    color: #aaffff;
+
+    @media (max-width: 992px) {
+      font-size: 3rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 2.5rem;
+    }
   }
 
   .check-speed-links {
@@ -97,6 +117,7 @@
     width: 100%;
     display: inline-block;
     padding: 32px;
+    margin-top: 50px;
     text-align: center;
     background: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.08));
     background-color: #223140;
@@ -107,7 +128,7 @@
   .loader-widget {
     width: 100%;
     max-width: 360px;
-    height: 420px;
+    height: 300px;
   }
 
   .loader {
@@ -225,10 +246,5 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-  }
-
-  h1 {
-    font-size: 30px;
-    margin: 15px 0;
   }
 </style>
