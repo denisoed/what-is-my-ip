@@ -10,10 +10,5 @@ export default defineNuxtConfig({
         lang: 'en',
       }
     }
-  },
-  runtimeConfig: {
-    public: {
-      API_BASE_URL: process.env.API_BASE_URL,
-    },
-  },
+  }
 })

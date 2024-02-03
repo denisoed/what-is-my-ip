@@ -17,7 +17,6 @@ services:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
-      - ALLOWED_DOMAIN=${ALLOWED_DOMAIN}
 
   watchtower:
     image: containrrr/watchtower

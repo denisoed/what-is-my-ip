@@ -38,6 +38,20 @@ yarn dev
 bun run dev
 ```
 
+### Docker
+
+- Build docker container for develop
+
+```bash
+docker build -t front .
+```
+
+- Run docker container
+
+```bash
+docker run -it -p 3000:3000 front
+```
+
 ## Production
 
 Build the application for production:
@@ -74,16 +88,42 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
-## Docker
+## Init project on VPS
 
-- Build docker container for develop
+1. Install docker and docker compose to VPS
+
+2. Create /project folder
 
 ```bash
-docker build -t front .
+mkdir project
 ```
 
-- Run docker container
+```bash
+cd project
+```
+
+3. Create docker-compose.yml file
 
 ```bash
-docker run -it -p 3000:3000 front
+touch docker-compose.yml
+```
+
+4. Create .env file and set variables:
+
+```bash
+touch .env
+```
+
+```bash
+GEOIPUPDATE_ACCOUNT_ID=***
+GEOIPUPDATE_LICENSE_KEY=***
+LETSENCRYPT_EMAIL=main@mail.com
+LETSENCRYPT_HOST=example.com
+VIRTUAL_HOST=example.com
+```
+
+5. Run docker-compose.yml
+
+```bash
+docker compose up -d
 ```
