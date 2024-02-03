@@ -35,7 +35,7 @@ export default defineComponent({
   background-color: #223140;
   padding: 8px 20px;
   border-radius: 24px;
-  z-index: 10;
+  z-index: 999999;
 
   &--show {
     visibility: visible;

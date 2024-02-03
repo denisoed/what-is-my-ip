@@ -1,15 +1,14 @@
 <template>
-  <li class="link-card">
+  <div class="link-card">
 		<router-link :to="to">
-			<h2>
+			<h3>
 				{{ title }}
-				<span>&rarr;</span>
-			</h2>
+			</h3>
 			<p>
 				{{ body }}
 			</p>
 		</router-link>
-	</li>
+	</div>
 </template>
 
 <script lang="ts">
@@ -57,7 +56,7 @@ export default defineComponent({
     background-color: #223140;
 		opacity: 0.8;
 	}
-	h2 {
+	h3 {
 		margin: 0;
 		font-size: 1.25rem;
 		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);

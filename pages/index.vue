@@ -15,6 +15,14 @@
         <CardLink to="/check-speed" title="Internet Speed" body="Check internet speed" />
       </div>
     </div>
+    <a
+      href="https://en.wikipedia.org/wiki/IP_address"
+      aria-label="More information about IP address"
+      class="more-info"
+      target="_blank"
+    >
+      More information about IP address
+    </a>
   </main>
 </template>
 
@@ -22,11 +30,11 @@
 const { data } = useFetch('/api/ip');
 
 useHead({
-  title: 'What is My IP? - Discover Your IP Address: Detailed Info on IP, City, Country, Location, and Time Zone',
+  title: 'What is My IP? - Detailed Info on IP, City, Country, Location, and Time Zone',
   meta: [
     {
       name: 'description',
-      content: 'Easily find out the IP address of your device, along with comprehensive details including your city, country, exact location, and time zone. A quick and user-friendly way to get all the information you need about your IP.'
+      content: 'Easily find out the IP address of your device, along with comprehensive details including your city, country, exact location, and time zone.'
     },
     {
       name: 'keywords',
@@ -79,6 +87,13 @@ useHead({
       font-size: 2.5rem;
     }
   }
+
+  .more-info {
+    color: #fff;
+    margin-top: 20px;
+    font-size: 1.2rem;
+  }
+
   .text-gradient {
     background-image: var(--accent-gradient);
     -webkit-background-clip: text;
