@@ -1,12 +1,19 @@
 <template>
-  <div class="wrapper">
-    <div class="loader-widget">
-      <h1>CHECK INTERNET SPEED</h1>
-      <div class="loader-content">
-        <div class="content">{{ downloadSpeed }}<small>Mbps</small></div>
-        <span v-if="checking" class="loader"></span>
-        <button v-else @click="checkSpeed">CHECK</button>
+  <div class="check-speed-page">
+    <div class="wrapper">
+      <div class="loader-widget">
+        <h1>CHECK INTERNET SPEED</h1>
+        <div class="loader-content">
+          <div class="content">{{ downloadSpeed }}<small>Mbps</small></div>
+          <span v-if="checking" class="loader"></span>
+          <button v-else @click="checkSpeed">
+            <img src="assets/logo.svg" alt="Run Speed Test" />
+          </button>
+        </div>
       </div>
+    </div>
+    <div class="check-speed-links">
+      <CardLink to="/" title="What is My IP" body="Find out your IP address" />
     </div>
   </div>
 </template>
@@ -56,19 +63,26 @@
 </script>
 
 <style lang="scss" scoped>
-  *.hide {
-    display: none !important;
+  .check-speed-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+
+  .check-speed-links {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 30px;
   }
 
   .wrapper {
-    width: 100%;
     max-width: 360px;
-    position: absolute;
+    width: 100%;
     display: inline-block;
     padding: 32px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
     background: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.08));
     background-color: #223140;
@@ -136,6 +150,10 @@
     color: #eaeaea;
     border: 0;
     box-shadow: 0 0 12px #81ecec;
+
+    img {
+      width: 50%;
+    }
   }
 
   .loader-content.result button {
@@ -148,17 +166,17 @@
     background-color: #1f3c4e;
   }
 
-  // .loader-content button:before {
-  //   content: '';
-  //   position: absolute;
-  //   height: 100%;
-  //   width: 100%;
-  //   top: -2px;
-  //   left: -2px;
-  //   border: 2px solid #7ed6d4;
-  //   border-radius: 50%;
-  //   animation: btnRing 2s linear infinite;
-  // }
+  .loader-content button:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: -2px;
+    left: -2px;
+    border: 2px solid #7ed6d4;
+    border-radius: 50%;
+    animation: btnRing 2s linear infinite;
+  }
 
   @keyframes btnRing {
     60%,

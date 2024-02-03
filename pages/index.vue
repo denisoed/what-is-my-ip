@@ -1,17 +1,15 @@
 <template>
   <main>
     <h1>What is My IP</h1>
-    <ClientOnly>
-      <IpInfo
-        class="user-info"
-        :ip="info.ip"
-        :country="info.country"
-        :city="info.city"
-        :loc="info.loc"
-        :timezone="info.timezone"
-        :hostname="info.hostname"
-      />
-    </ClientOnly>
+    <IpInfo
+      class="user-info"
+      :ip="info.ip"
+      :country="info.country"
+      :city="info.city"
+      :loc="info.loc"
+      :timezone="info.timezone"
+      :hostname="info.hostname"
+    />
     <div class="links">
       <CardLink to="/check-speed" title="Internet Speed" body="Check internet speed" />
     </div>
@@ -27,17 +25,21 @@ export default defineComponent({
     const info = ref({});
     
     async function fetchInitData() {
-      const runtimeConfig = useRuntimeConfig();
-      const response = await fetch(runtimeConfig.public.API_BASE_URL);
-      const data = await response.json();
-      info.value = {
-        ip: data?.ip,
-        city: data?.city?.names?.en,
-        loc: [data?.location?.latitude, data?.location?.longitude],
-        timezone: data?.location?.time_zone,
-        country: data?.country?.iso_code,
-        hostname: data?.autonomous_system_organization
-      };
+      try {
+        const runtimeConfig = useRuntimeConfig();
+        const response = await fetch(runtimeConfig.public.API_BASE_URL);
+        const data = await response.json();
+        info.value = {
+          ip: data?.ip,
+          city: data?.city?.names?.en,
+          loc: [data?.location?.latitude || 42, data?.location?.longitude || 42],
+          timezone: data?.location?.time_zone,
+          country: data?.country?.iso_code,
+          hostname: data?.autonomous_system_organization
+        };  
+      } catch {
+        console.error('Server is not available');
+      }
     }
 
     onBeforeMount(() => {

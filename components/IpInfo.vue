@@ -1,14 +1,18 @@
 <template>
   <div class="user-info">
     <div class="user-info_data">
-      <div class="d-flex align-center justify-space-between">
-        <h2>{{ ip }}</h2>
-        <v-btn
+      <div class="user-info_ip">
+        <h2>{{ ip }}192.168.0.1</h2>
+        <button
           variant="tonal"
           aria-label="Copy IP"
-          icon="mdi-content-copy"
+          class="user-info_copy-ip"
           @click="copyValue('ip')"
-        />
+        >
+          <ClientOnly>
+            <img src="~/assets/copy.svg" alt="Copy IP" />
+          </ClientOnly>
+        </button>
       </div>
       <div class="user-info_data-details">
         <p @click="copyValue('country')" :title="country">
@@ -23,35 +27,18 @@
     <div class="user-info_map">
       <Map v-if="loc" :center="loc" />
     </div>
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="3000"
-    >
-      <v-icon
-        class="mr-2"
-        icon="mdi-check"
-      />
-      {{ copyField.type }}: {{ copyField.value }} - copied
-      <template v-slot:actions>
-        <v-btn
-          variant="text"
-          @click="snackbar = false"
-          icon="mdi-close"
-        />
-      </template>
-    </v-snackbar>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, ref, reactive } from "vue";
+import { defineComponent, computed, toRefs, ref, reactive, type PropType } from "vue";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
 
 export default defineComponent({
   name: "IpInfo",
   props: {
     ip: {
-      type: String,
+      type: String as PropType<string | undefined>,
       required: true,
     },
     hostname: {
@@ -67,7 +54,7 @@ export default defineComponent({
       required: true,
     },
     loc: {
-      type: Array,
+      type: Array as PropType<string[] | undefined>,
       required: true,
     },
     timezone: {
@@ -77,26 +64,22 @@ export default defineComponent({
   },
   setup(props) {
     const { country } = toRefs(props);
-
     const snackbar = ref(false);
     const copyField = reactive({
       type: '',
       value: '',
     });
-
     function copyValue(type: string) {
       copyField.type = type.toUpperCase();
       copyField.value = props[type];
       navigator.clipboard.writeText(props[type]);
       snackbar.value = true;
     }
-
     const flag = computed(() => {
-      return country.value ? getUnicodeFlagIcon(country.value) : "🌎";
+      return country.value ? getUnicodeFlagIcon(country.value) : '';
     });
-
     return { flag, copyValue, snackbar, copyField };
-  }
+  },
 });
 </script>
 
@@ -125,16 +108,41 @@ export default defineComponent({
       }
     }
 
-    .v-btn {
+    &_ip {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &_copy-ip {
       width: 40px;
       height: 40px;
       font-size: 14px;
       margin: 12px 0;
+      background: rgba($color: white, $alpha: 0.1);
+      border: 0;
+      box-shadow: none;
+      cursor: pointer;
+      border-radius: 100%;
+      
+      &:hover {
+        background: rgba($color: white, $alpha: 0.2);
+      }
+
+      &:active {
+        background: rgba($color: white, $alpha: 0.1);
+      }
+      
+      img {
+        width: 40%;
+      }
     }
 
     &_map {
       width: 200px;
       height: 280px;
+      background: rgba($color: white, $alpha: 0.1);
       
       @media (max-width: 768px) {
         margin-top: 10px;

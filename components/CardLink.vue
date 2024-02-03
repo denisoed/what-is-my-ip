@@ -1,15 +1,15 @@
 <template>
   <li class="link-card">
-	<router-link :to="to">
-		<h2>
-			{{ title }}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{{ body }}
-		</p>
-	</router-link>
-</li>
+		<router-link :to="to">
+			<h2>
+				{{ title }}
+				<span>&rarr;</span>
+			</h2>
+			<p>
+				{{ body }}
+			</p>
+		</router-link>
+	</li>
 </template>
 
 <script lang="ts">
@@ -41,11 +41,10 @@ export default defineComponent({
 		display: flex;
 		padding: 1px;
 		background-image: none;
-		background-size: 400%;
+		background-size: 200%;
 		border-radius: 24px;
 		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+		transition: background-position 2s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 	.link-card > a {
 		width: 100%;
