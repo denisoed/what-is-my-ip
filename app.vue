@@ -9,7 +9,7 @@
     <Link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
     <Link rel="canonical" href="https://get-info-about.me" />
     <Meta name="msapplication-TileColor" content="#da532c" />
-    <Meta name="theme-color" content="#ffffff" />
+    <Meta name="theme-color" content="#14222e" />
     <Meta name="keywords" content="IP Address Lookup, Find My IP, IP Location Finder, Check IP Address, What is My IP, IP Address Tracker, Geolocation IP, IP Address Details, Network IP Check, IP Country Locator, Discover IP Address, IP Address Query, My IP Information, IP Address Analysis, IP and Time Zone, Online IP Checker, IP Geolocation Tool, IP Address Identifier, My Internet IP, IP Address and City" /> 
   </Head>
   <NuxtPage />
