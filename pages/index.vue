@@ -48,6 +48,20 @@ export default defineComponent({
       fetchInitData();
     });
 
+    useHead({
+      title: 'What is My IP? - Discover Your IP Address: Detailed Info on IP, City, Country, Location, and Time Zone',
+      meta: [
+        {
+          name: 'description',
+          content: 'Easily find out the IP address of your device, along with comprehensive details including your city, country, exact location, and time zone. A quick and user-friendly way to get all the information you need about your IP.'
+        },
+        {
+          name: 'keywords',
+          content: 'ip, city, country, location, time zone, what is my ip, my ip, my ip address, my ip info, my ip address info, my ip address info, my ip address info, my ip address info'
+        }
+      ]
+    });
+
     return { info }
   },
 });

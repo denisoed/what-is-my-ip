@@ -50,16 +50,30 @@
     downloadSpeed.value = 0;
     checking.value = true;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       speeds.push(await loadSpeedTest());
     }
-
+    
     const results = await Promise.all(speeds);
     const middle = results[Math.floor((results.length - 1) / 2)];
     const totalSpeed = middle.toFixed(1);
     downloadSpeed.value = totalSpeed;
     checking.value = false;
   };
+
+  useHead({
+    title: 'Check Internet Speed',
+    meta: [
+      {
+        name: 'description',
+        content: 'Check the speed of your internet connection using this free tool. Get detailed information about your internet speed, including download speed, upload speed, ping, and more.'
+      },
+      {
+        name: 'keywords',
+        content: 'internet speed, check internet speed, download speed, upload speed, ping, download speed test, upload speed test, ping test'
+      }
+    ]
+  });
 </script>
 
 <style lang="scss" scoped>
