@@ -6,6 +6,7 @@
     <Link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <Link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <Link rel="manifest" href="/site.webmanifest" />
+    <Link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <Link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
     <Link rel="canonical" href="https://get-info-about.me" />
     <Meta name="msapplication-TileColor" content="#da532c" />

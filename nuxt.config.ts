@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    'nuxt3-leaflet'
+    'nuxt3-leaflet',
+    '@nuxtjs/sitemap'
   ],
   app: {
     head: {
@@ -10,5 +11,11 @@ export default defineNuxtConfig({
         lang: 'en',
       }
     }
+  },
+  site: {
+    url: 'https://get-info-about.me',
+  },
+  nitro: {
+    compressPublicAssets: true,
   }
 })
