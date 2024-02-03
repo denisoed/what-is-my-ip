@@ -3,7 +3,17 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     'nuxt3-leaflet',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    [
+      'yandex-metrika-module-nuxt3',
+      {
+        id: '96353822',
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true
+      }
+    ]
   ],
   app: {
     head: {

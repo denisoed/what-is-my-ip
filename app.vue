@@ -11,7 +11,7 @@
     <Link rel="canonical" href="https://get-info-about.me" />
     <Meta name="msapplication-TileColor" content="#da532c" />
     <Meta name="theme-color" content="#14222e" />
-    <Meta name="keywords" content="ip, city, country, location, time zone, internet speed" /> 
+    <Meta name="keywords" content="ip, city, country, location, time zone, internet speed" />
   </Head>
   <NuxtPage />
 </template>
