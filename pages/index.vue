@@ -1,17 +1,19 @@
 <template>
   <main>
     <h1>What is My IP</h1>
-    <IpInfo
-      class="user-info"
-      :ip="info.ip"
-      :country="info.country"
-      :city="info.city"
-      :loc="info.loc"
-      :timezone="info.timezone"
-      :hostname="info.hostname"
-    />
-    <div class="links">
-      <CardLink to="/check-speed" title="Internet Speed" body="Check internet speed" />
+    <div class="wrapper">
+      <IpInfo
+        class="user-info"
+        :ip="info.ip"
+        :country="info.country"
+        :city="info.city"
+        :loc="info.loc"
+        :timezone="info.timezone"
+        :hostname="info.hostname"
+      />
+      <div class="links">
+        <CardLink to="/check-speed" title="Internet Speed" body="Check internet speed" />
+      </div>
     </div>
   </main>
 </template>
@@ -53,31 +55,17 @@ export default defineComponent({
 
 <style lang="scss">
   main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: auto;
-    padding: 4rem 55px;
-    width: 800px;
+    padding: 4rem 15px;
     color: white;
     font-size: 20px;
     line-height: 1.6;
     overflow: hidden;
-
-    @media (max-width: 992px) {
-      max-width: 650px;
-    }
-
-    @media (max-width: 768px) {
-      max-width: 500px;
-    }
-
-    @media (max-width: 568px) {
-      max-width: 100%;
-      padding: 4rem 25px;
-    }
-    
-    @media (max-width: 568px) {
-      padding: 4rem 15px;
-    }
   }
+
   .logo-position {
     position: fixed;
     top: -15px;
@@ -88,6 +76,7 @@ export default defineComponent({
     z-index: 1;
     opacity: 0.2;
   }
+
   h1 {
     position: relative;
     font-size: 4rem;
@@ -101,6 +90,10 @@ export default defineComponent({
 
     @media (max-width: 992px) {
       font-size: 3rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 2.5rem;
     }
   }
   .text-gradient {
@@ -116,9 +109,30 @@ export default defineComponent({
     gap: 2rem;
     padding: 0;
   }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+
+    @media (max-width: 992px) {
+      max-width: 650px;
+    }
+  
+    @media (max-width: 768px) {
+      max-width: 500px;
+    }
+  
+    @media (max-width: 568px) {
+      max-width: 100%;
+    }
+  }
   .user-info {
+    width: 100%;
     z-index: 1;
     margin-top: 50px;
+
   }
   .links {
     width: 100%;

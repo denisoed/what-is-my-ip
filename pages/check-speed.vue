@@ -69,8 +69,8 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    padding: 4rem 15px;
   }
-
 
   .check-speed-links {
     width: 100%;
@@ -166,17 +166,17 @@
     background-color: #1f3c4e;
   }
 
-  .loader-content button:before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: -2px;
-    left: -2px;
-    border: 2px solid #7ed6d4;
-    border-radius: 50%;
-    animation: btnRing 2s linear infinite;
-  }
+  // .loader-content button:before {
+  //   content: '';
+  //   position: absolute;
+  //   height: 100%;
+  //   width: 100%;
+  //   top: -2px;
+  //   left: -2px;
+  //   border: 2px solid #7ed6d4;
+  //   border-radius: 50%;
+  //   animation: btnRing 2s linear infinite;
+  // }
 
   @keyframes btnRing {
     60%,

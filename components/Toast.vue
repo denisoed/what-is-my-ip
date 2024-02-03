@@ -24,11 +24,18 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .toast {
+  min-width: 300px;
   position: fixed;
   bottom: 30px;
   right: 50%;
   transform: translateX(50%);
   visibility: hidden;
+  color: white;
+  background: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.08));
+  background-color: #223140;
+  padding: 8px 20px;
+  border-radius: 24px;
+  z-index: 10;
 
   &--show {
     visibility: visible;
