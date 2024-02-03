@@ -26,6 +26,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=300
 
   geoipupdate:
     container_name: geoipupdate
