@@ -2,7 +2,7 @@
   <div class="user-info">
     <div class="user-info_data">
       <div class="user-info_ip">
-        <h2>{{ ip }}192.168.0.1</h2>
+        <h2>{{ ip || 'N/A' }}</h2>
         <button
           variant="tonal"
           aria-label="Copy IP"
@@ -27,6 +27,11 @@
     <div class="user-info_map">
       <Map v-if="loc" :center="loc" />
     </div>
+
+    <Toast
+      :show="copied"
+      :message="`${copyField.type}: ${copyField.value || 'N/A'} - copied`"
+    />
   </div>
 </template>
 
@@ -64,21 +69,25 @@ export default defineComponent({
   },
   setup(props) {
     const { country } = toRefs(props);
-    const snackbar = ref(false);
+    const copied = ref(false);
     const copyField = reactive({
       type: '',
       value: '',
     });
+
     function copyValue(type: string) {
+      copied.value = true;
+      setTimeout(() => {
+        copied.value = false;
+      }, 3000);
       copyField.type = type.toUpperCase();
       copyField.value = props[type];
       navigator.clipboard.writeText(props[type]);
-      snackbar.value = true;
     }
     const flag = computed(() => {
       return country.value ? getUnicodeFlagIcon(country.value) : '';
     });
-    return { flag, copyValue, snackbar, copyField };
+    return { flag, copyValue, copied, copyField };
   },
 });
 </script>
