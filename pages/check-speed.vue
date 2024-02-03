@@ -81,7 +81,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     min-height: 100vh;
     padding: 4rem 15px;
   }

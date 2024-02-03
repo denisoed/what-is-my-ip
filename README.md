@@ -73,3 +73,17 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Docker
+
+- Build docker container for develop
+
+```bash
+docker build -t front .
+```
+
+- Run docker container
+
+```bash
+docker run -it -p 3000:3000 front
+```

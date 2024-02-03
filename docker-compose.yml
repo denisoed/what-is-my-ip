@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  user-info:
+    container_name: user-info
+    image: denisoed994/user-info
+    restart: always
+    networks:
+      - network
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    volumes:
+      - ./db:/app/db
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+      - ALLOWED_DOMAIN=${ALLOWED_DOMAIN}
+
+  watchtower:
+    image: containrrr/watchtower
+    networks:
+      - network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+
+  geoipupdate:
+    container_name: geoipupdate
+    image: ghcr.io/maxmind/geoipupdate
+    restart: unless-stopped
+    environment:
+      - GEOIPUPDATE_ACCOUNT_ID=${GEOIPUPDATE_ACCOUNT_ID}
+      - GEOIPUPDATE_LICENSE_KEY=${GEOIPUPDATE_LICENSE_KEY}
+      - GEOIPUPDATE_EDITION_IDS=GeoLite2-ASN GeoLite2-Country GeoLite2-City
+      - GEOIPUPDATE_FREQUENCY=72
+    networks:
+      - network
+    volumes:
+      - './db:/usr/share/GeoIP'
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    networks:
+      - network
+    volumes:
+      - ./data/nginx/vhost.d:/etc/nginx/vhost.d
+      - ./data/nginx/html:/usr/share/nginx/html
+      - ./data/nginx/certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - 80:80
+      - 443:443
+
+  nginx-proxy-acme:
+    image: nginxproxy/acme-companion
+    environment:
+      - DEFAULT_EMAIL=denisoed@gmail.com
+    networks:
+      - network
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - ./data/acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx-proxy
+
+networks:
+  network:
+    driver: bridge

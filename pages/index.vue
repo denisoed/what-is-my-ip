@@ -4,12 +4,12 @@
     <div class="wrapper">
       <IpInfo
         class="user-info"
-        :ip="info.ip"
-        :country="info.country"
-        :city="info.city"
-        :loc="info.loc"
-        :timezone="info.timezone"
-        :hostname="info.hostname"
+        :ip="data?.ip"
+        :city="data?.city?.names?.en"
+        :country="data?.country?.iso_code"
+        :loc="[data?.location?.latitude || 42, data?.location?.longitude || 42]"
+        :timezone="data?.location?.time_zone"
+        :hostname="data?.autonomous_system_organization"
       />
       <div class="links">
         <CardLink to="/check-speed" title="Internet Speed" body="Check internet speed" />
@@ -18,52 +18,21 @@
   </main>
 </template>
 
-<script>
-import { defineComponent, ref, onBeforeMount } from "vue";
+<script setup>
+const { data } = useFetch('/api/ip');
 
-export default defineComponent({
-  name: "IndexPage",
-  setup() {
-    const info = ref({});
-    
-    async function fetchInitData() {
-      try {
-        const runtimeConfig = useRuntimeConfig();
-        const response = await fetch(runtimeConfig.public.API_BASE_URL);
-        const data = await response.json();
-        info.value = {
-          ip: data?.ip,
-          city: data?.city?.names?.en,
-          loc: [data?.location?.latitude || 42, data?.location?.longitude || 42],
-          timezone: data?.location?.time_zone,
-          country: data?.country?.iso_code,
-          hostname: data?.autonomous_system_organization
-        };  
-      } catch {
-        console.error('Server is not available');
-      }
+useHead({
+  title: 'What is My IP? - Discover Your IP Address: Detailed Info on IP, City, Country, Location, and Time Zone',
+  meta: [
+    {
+      name: 'description',
+      content: 'Easily find out the IP address of your device, along with comprehensive details including your city, country, exact location, and time zone. A quick and user-friendly way to get all the information you need about your IP.'
+    },
+    {
+      name: 'keywords',
+      content: 'ip, city, country, location, time zone, what is my ip, my ip, my ip address, my ip info, my ip address info, my ip address info, my ip address info, my ip address info'
     }
-
-    onBeforeMount(() => {
-      fetchInitData();
-    });
-
-    useHead({
-      title: 'What is My IP? - Discover Your IP Address: Detailed Info on IP, City, Country, Location, and Time Zone',
-      meta: [
-        {
-          name: 'description',
-          content: 'Easily find out the IP address of your device, along with comprehensive details including your city, country, exact location, and time zone. A quick and user-friendly way to get all the information you need about your IP.'
-        },
-        {
-          name: 'keywords',
-          content: 'ip, city, country, location, time zone, what is my ip, my ip, my ip address, my ip info, my ip address info, my ip address info, my ip address info, my ip address info'
-        }
-      ]
-    });
-
-    return { info }
-  },
+  ]
 });
 </script>
 
