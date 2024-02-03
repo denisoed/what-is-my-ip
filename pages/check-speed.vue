@@ -12,29 +12,47 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue';
-  import { io } from "socket.io-client";
-
-  const runtimeConfig = useRuntimeConfig();
+  import { ref } from 'vue';
 
   const checking = ref(false);
   const downloadSpeed = ref(0);
-  
-  async function checkSpeed() {
-    checking.value = true;
-    fetch(`${runtimeConfig.public.API_BASE_URL}/check-speed`);
+
+  const imageLink = 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg';
+  const downloadSize = 10200000;
+  let speeds = [];
+
+  const loadSpeedTest = () => {
+    return new Promise(resolve => {
+      let timeStart, timeEnd;
+      const downloadSrc = new Image();
+      timeStart = new Date().getTime();
+      const cacheImg = `?nn=${timeStart}`;
+      downloadSrc.src = `${imageLink}${cacheImg}`;
+
+      downloadSrc.onload = () => {
+        timeEnd = new Date().getTime();
+        const timeDuration = (timeEnd - timeStart) / 1000;
+        const loadedBytes = downloadSize * 8;
+        const speed = (loadedBytes / timeDuration) / 1024 / 1024;
+        resolve(speed);
+      };
+    });
   };
   
-  onMounted(() => {
-    const socket = io(runtimeConfig.public.API_BASE_URL);
+  async function checkSpeed() {
+    downloadSpeed.value = 0;
+    checking.value = true;
 
-    socket.on("check-speed-result", (socket) => {
-      downloadSpeed.value = socket?.downloadSpeed || 0;
-      if (socket?.isDone) {
-        checking.value = false;
-      } 
-    });
-  })
+    for (let i = 0; i < 3; i++) {
+      speeds.push(await loadSpeedTest());
+    }
+
+    const results = await Promise.all(speeds);
+    const middle = results[Math.floor((results.length - 1) / 2)];
+    const totalSpeed = middle.toFixed(1);
+    downloadSpeed.value = totalSpeed;
+    checking.value = false;
+  };
 </script>
 
 <style lang="scss" scoped>
