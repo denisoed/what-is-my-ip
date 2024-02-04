@@ -35,7 +35,7 @@ const jsonld = {
   "name": "IP Address Lookup Tool",
   "url": "https://get-info-about.me/",
   "logo": "https://get-info-about.me/logo.png",
-  "description": "Discover your device's IP address effortlessly with our advanced IP lookup tool. Gain instant access to detailed information, including your city, country, precise location, and time zone, all in one place.",
+  "description": "Discover your device's IP address with our advanced IP lookup tool. Gain instant access to detailed information, including your city, country, precise location, and time zone, all in one place.",
   "applicationCategory": "Utilities",
   "offers": {
     "@type": "Offer",
@@ -56,7 +56,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: `Discover your device's IP address effortlessly with our advanced IP lookup tool. Gain instant access to detailed information, including your city, country, precise location, and time zone, all in one place. Our tool provides you with not just your public IP address but also offers insights into the geographical data associated with it. Whether you're troubleshooting network issues, verifying your online identity, or simply curious about your internet connection, our user-friendly platform makes it simple to obtain all the IP-related information you need. Experience quick, accurate, and comprehensive IP detection tailored to meet your digital needs.`
+      content: `Discover your device's IP address with our advanced IP lookup tool. Gain instant access to detailed information, including your city, country, precise location, and time zone, all in one place.`
     },
     {
       name: 'keywords',
