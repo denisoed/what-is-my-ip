@@ -40,6 +40,32 @@ useHead({
       name: 'keywords',
       content: 'ip, city, country, location, time zone, what is my ip, my ip, my ip address, my ip info, my ip address info, my ip address info, my ip address info, my ip address info'
     }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      json: {
+        "@context": "http://schema.org",
+        "@type": "WebApplication",
+        "name": "IP Address Lookup Tool",
+        "url": "https://get-info-about.me/",
+        "logo": "https://get-info-about.me/logo.svg",
+        "description": "Discover your device's IP address effortlessly with our advanced IP lookup tool. Gain instant access to detailed information, including your city, country, precise location, and time zone, all in one place.",
+        "applicationCategory": "Utilities",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "USD",
+          "availability": "http://schema.org/InStock"
+        },
+        "browserRequirements": "Requires any modern web browser",
+        "operatingSystem": "All",
+        "softwareVersion": "1.0",
+        "featureList": "IP Address Detection, Geolocation Information, Real-time Analysis",
+        "screenshot": "https://get-info-about.me/screenshot.jpg",
+        "accessibilityAPI": "ARIA"
+      }
+    }
   ]
 });
 </script>
