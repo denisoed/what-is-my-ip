@@ -91,7 +91,7 @@ useHead({
   .more-info {
     color: #fff;
     margin-top: 20px;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .text-gradient {
