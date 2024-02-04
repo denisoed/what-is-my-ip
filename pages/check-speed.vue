@@ -62,7 +62,7 @@
   };
 
   useHead({
-    title: 'Check Internet Speed',
+    title: 'Internet Speed Test: Check Your WiFi & Broadband Speed Now',
     meta: [
       {
         name: 'description',

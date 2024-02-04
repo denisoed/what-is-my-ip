@@ -30,11 +30,11 @@
 const { data } = useFetch('/api/ip');
 
 useHead({
-  title: 'What is My IP? - Detailed Info on IP, City, Country, Location, and Time Zone',
+  title: `What's My IP? Discover Your IP Address, Location, and More`,
   meta: [
     {
       name: 'description',
-      content: 'Easily find out the IP address of your device, along with comprehensive details including your city, country, exact location, and time zone.'
+      content: `Discover your device's IP address effortlessly with our advanced IP lookup tool. Gain instant access to detailed information, including your city, country, precise location, and time zone, all in one place. Our tool provides you with not just your public IP address but also offers insights into the geographical data associated with it. Whether you're troubleshooting network issues, verifying your online identity, or simply curious about your internet connection, our user-friendly platform makes it simple to obtain all the IP-related information you need. Experience quick, accurate, and comprehensive IP detection tailored to meet your digital needs.`
     },
     {
       name: 'keywords',
