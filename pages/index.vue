@@ -10,6 +10,7 @@
         :loc="[data?.location?.latitude || 42, data?.location?.longitude || 42]"
         :timezone="data?.location?.time_zone"
         :hostname="data?.autonomous_system_organization"
+        @on-search="onSearch"
       />
       <div class="links">
         <CardLink to="/check-speed" title="Internet Speed" body="Check internet speed" />
@@ -27,7 +28,18 @@
 </template>
 
 <script setup>
-const { data } = useFetch('/api/ip');
+const ip = ref(null);
+
+const { data, execute } = useLazyFetch('/api/ip', {
+  query: {
+    ip
+  }
+});
+
+async function onSearch(address) {
+  ip.value = address;
+  execute();
+}
 
 const jsonld = {
   "@context": "http://schema.org",

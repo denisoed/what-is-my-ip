@@ -2,7 +2,22 @@
   <div class="user-info">
     <div class="user-info_data">
       <div class="user-info_ip">
-        <h2>{{ ip || 'N/A' }}</h2>
+        <input
+          v-model="selectedIP"
+          placeholder="Enter IP"
+          autofocus
+          onclick="this.select()"
+        />
+        <button
+          variant="tonal"
+          aria-label="Copy IP"
+          class="user-info_search"
+          @click="onSearch"
+        >
+          <ClientOnly>
+            <img src="~/assets/search.svg" alt="Copy IP" />
+          </ClientOnly>
+        </button>
         <button
           variant="tonal"
           aria-label="Copy IP"
@@ -36,7 +51,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, ref, reactive, type PropType } from "vue";
+import {
+  defineComponent,
+  computed,
+  toRefs,
+  ref,
+  watch,
+  reactive,
+  type PropType
+} from "vue";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
 
 export default defineComponent({
@@ -67,8 +90,10 @@ export default defineComponent({
       required: true,
     }
   },
-  setup(props) {
-    const { country } = toRefs(props);
+  emits: ['on-search'],
+  setup(props, { emit }) {
+    const { country, ip } = toRefs(props);
+    const selectedIP = ref(ip.value);
     const copied = ref(false);
     const copyField = reactive({
       type: '',
@@ -87,7 +112,27 @@ export default defineComponent({
     const flag = computed(() => {
       return country.value ? getUnicodeFlagIcon(country.value) : '';
     });
-    return { flag, copyValue, copied, copyField };
+
+    function onSearch() {
+      emit('on-search', selectedIP.value);
+    }
+
+    watch(ip, (newIp) => {
+      if (newIp) {
+        selectedIP.value = newIp;
+      }
+    }, {
+      immediate: true
+    });
+
+    return {
+      flag,
+      copyValue,
+      copied,
+      copyField,
+      onSearch,
+      selectedIP
+    };
   },
 });
 </script>
@@ -107,13 +152,25 @@ export default defineComponent({
       flex-direction: column;
     }
 
-    h2 {
+    input {
       font-size: 2.5rem;
       font-weight: bold;
       overflow: hidden;
+      border: none;
+      color: #fff;
+      box-shadow: none;
+      background: transparent;
+      -moz-appearance: textfield;
 
-      @media (max-width: 992px) {
-        font-size: 2rem;
+      &:focus {
+        outline: none;
+      }
+
+      /* Chrome, Safari, Edge, Opera */
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
     }
 
@@ -121,11 +178,14 @@ export default defineComponent({
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 12px;
     }
 
+    &_search,
     &_copy-ip {
       width: 40px;
+      min-width: 40px;
       height: 40px;
       font-size: 14px;
       margin: 12px 0;
@@ -145,6 +205,12 @@ export default defineComponent({
       
       img {
         width: 40%;
+      }
+    }
+
+    &_search {
+      img {
+        width: 50%;
       }
     }
 
