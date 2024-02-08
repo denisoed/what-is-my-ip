@@ -153,6 +153,7 @@ export default defineComponent({
     }
 
     input {
+      width: 100%;
       font-size: 2.5rem;
       font-weight: bold;
       overflow: hidden;
@@ -216,6 +217,7 @@ export default defineComponent({
 
     &_map {
       width: 200px;
+      min-width: 200px;
       height: 280px;
       background: rgba($color: white, $alpha: 0.1);
       
